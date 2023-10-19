@@ -35,7 +35,7 @@ def bot(query: str, options: str, test_case: Dict[str, str], max_new_tokens: int
     
     context = []
     for key in keywords:
-        inf = db_context.similarity_search_with_relevance_scores(key, k=2, score_threshold=context_score)
+        inf = db_context.similarity_search_with_relevance_scores(key, k=3, score_threshold=context_score)
         if len(inf) != 0:
             context.extend([i[0].metadata['content'] for i in inf])
 
@@ -78,11 +78,11 @@ def bot(query: str, options: str, test_case: Dict[str, str], max_new_tokens: int
 if __name__ == "__main__":
     test_datas = jload("data/ChallengeTestData.json")
 
-    with open('result.csv', 'a', encoding='UTF8') as f:
+    with open('result.csv', 'w', encoding='UTF8') as f:
         writer = csv.writer(f)
         header = ['id', 'answer']
         # write the header
-        # writer.writerow(header)
+        writer.writerow(header)
 
         for data in test_datas:
             question = data["question"]

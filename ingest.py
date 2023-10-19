@@ -13,9 +13,8 @@ from langchain.docstore.document import Document
 from embeddings import HuggingFaceEmbeddings
 
 # Load environment variables
-db_type = "med"
-source_directory = f"data/{db_type}_data"
-persist_directory = f"data/db/faiss_{db_type}_db"
+source_directory = f"data/json"
+persist_directory = f"data/db/faiss_med_db"
 
 
 # encode_kwargs = {'normalize_embeddings': True}
@@ -32,13 +31,13 @@ def load_single_document(file_path: str) -> List[Document]:
     ancest = jload(file_path)
     docs = []
     for data in ancest['data']:
-        if data['title'] != None:
-            doc=Document(
-                    page_content=data['title'],
-                    metadata={"content": data['normalized_content'],
-                            "path": ancest['path']}
-                )
-            docs.append(doc)
+        # if data['title'] != None:
+        doc=Document(
+                page_content=data['title'],
+                metadata={"content": data['normalized_content'],
+                        "path": ancest['path']}
+            )
+        docs.append(doc)
     return docs
 
 def load_documents(source_dir: str, ignored_files: List[str] = [], ext: str = ".json") -> List[Document]:
