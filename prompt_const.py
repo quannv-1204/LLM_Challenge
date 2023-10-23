@@ -162,3 +162,59 @@ Question: {question}
 Answer:
 ### Assistant:
 """
+
+SEARCH_QUERY_GENERATOPN_TEMPLATE = """### System:
+The following is a friendly conversation between a human and an AI. The AI is a good doctor who can summarize medical passages, generate search query and follow instruction very well.
+
+### User:
+summarize this paragraph into a short vietnamese query about disease that can be used to search disease in Medical database.
+Try and generate a Vietnamese grammatical sentence for the search query.
+This search query must be in Vietnamese and must not be longer than 15 words.
+
+Paragraph: "{context}"
+
+Reply in this format:
+Query: "Summarized disease query"
+
+YOUR HELPFUL ANSWER GOES HERE:
+
+### Assistant:
+"""
+
+DISEASE_SEARCH_TEMPLATE = """### System:
+The following is a friendly conversation between a human and an AI. The AI is a good doctor and can follow instruction very well. If the AI does not know the answer to a question, it truthfully says it does not know.
+
+### User:
+Given the passage about a disease, extract the name of main disease in the passage and return in valid format. If there are more than 1 disease in the passage, try to focus on only the main disease information.
+Never use acronyms or replace user content with acronyms if they do not appear in the user's information.
+Extract name of main disease mentioned in user messages, use only their original form, do not edit or add words that do not appear in user's passage.
+DO NOT change the language of disease, keep its original form.
+
+Reply in this format:
+disease: "name of main disease in original language"
+
+Let's try this now:
+Passage: "{context}"
+
+### Assistant:
+"""
+
+
+DISEASE_EXTRACT_TEMPLATE = """### System:
+The following is a friendly conversation between a human and an AI. The AI is a good doctor and can follow instruction very well. If the AI does not know the answer to a question, it truthfully says it does not know.
+
+### User:
+Find name of diease that mainly mentioned in the Question and summarize the Question below into a short vietnamese query about disease that can be used to search disease in Medical database. Do it carefully step by step as follow:
+Step 1: extract the name of main disease in the passage and return in valid format. If there are more than 1 disease in the passage, try to focus on only the 1 main disease in the question. If you cannot find the disease, return Disease: "None"
+Step 2: find out What information does user need to know about the disease extracted in step 1?
+Step 3: use [the name of main disease] and [the information user needs to know about that disease] to generate a short search query in Vietnamese.
+Step 4: return [the name of main disease] and [vietnamese search query] in valid format with quotes. This search query must be in Vietnamese and must not be longer than 15 words.
+
+Question: "Mai hiện mang thai tháng thứ 9. Có rất nhiều bệnh truyền nhiễm có thể lây từ mẹ sang con trong quá trình mang thai hoặc sinh thường. Những bệnh nào dưới đây có thể lây như vậy?"
+
+Reply in this format:
+Disease: "the Vietnamese name of main disease"
+Query: "Vietnamese searching disease query"
+
+### Assistant:
+"""
