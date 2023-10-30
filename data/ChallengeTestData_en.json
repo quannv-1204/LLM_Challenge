@@ -1,0 +1,502 @@
+[
+    {
+        "id": "level3_1",
+        "question": "Huong is pregnant and worried she may have placenta previa. Huong can be tested to detect this disease from what week of pregnancy?",
+        "options": "A. Week 10\nB.Week 20\nC. Week 30\nD. Week 40"
+    },
+    {
+        "id": "level3_2",
+        "question": "Huong is 5 weeks pregnant and is worried she may have placenta previa. How many weeks can Huong be tested to detect this disease?",
+        "options": "A. 5 weeks\nB. 15 weeks\nC. 25 weeks\nD. 35 weeks"
+    },
+    {
+        "id": "level3_5",
+        "question": "How many strikers know that in football, each team usually has a maximum of 3 strikers on the field?",
+        "options": "A. 2\nB.3\nC. 4\nD. 5"
+    },
+    {
+        "id": "level3_13",
+        "question": "Patient Dung was diagnosed with hepatitis lasting about 4 months. Ask patient Dung whether he has chronic hepatitis or not?",
+        "options": "Yes\nNo\n"
+    },
+    {
+        "id": "level3_14",
+        "question": "A patient has testicular pain. After being questioned, the patient's right testicle was completely normal, the other side had pain. The main causes of this phenomenon are:",
+        "options": "A. Urinary tract infection\nB. Testicular cancer\nC. Trauma\nD. Varicocele"
+    },
+    {
+        "id": "level3_17",
+        "question": "An has spondylitis, and Nam has diarrhea. Ask which group of diseases does Nam belong to?",
+        "options": "A. Digestive diseases\nB. Respiratory diseases\nC. Cardiovascular disease\nD. Neurological disease"
+    },
+    {
+        "id": "level3_22",
+        "question": "What problems can the arbitrary use of antibiotics, in excess doses, or without prescription cause?",
+        "options": "A. Enhance nutrient absorption\nB. Imbalance of intestinal microflora\nC. Reduced intestinal motility\nD. There is no correct answer"
+    },
+    {
+        "id": "level3_27",
+        "question": "Can men get breast cancer?",
+        "options": "Yes\nNo\n"
+    },
+    {
+        "id": "level3_35",
+        "question": "Ovarian cancer is a malignant tumor that originates from one or both ovaries. According to statistics, the incidence of ovarian cancer is about 4.6/100,000 women. How do doctors diagnose this disease?",
+        "options": "A. Clinical examination\nB.Vaginal ultrasound and abdominal ultrasound\nC. Imaging diagnosis, functional exploration and nuclear medicine"
+    },
+    {
+        "id": "level3_42",
+        "question": "A healthy person who eats chicken combs will not experience unusual symptoms in the abdomen, thighs, or inside the anus. Does that person have genital warts?",
+        "options": "Yes\nNo\n"
+    },
+    {
+        "id": "level3_53",
+        "question": "Mr. Than wants to check images of his heart and lungs. Which of the following methods can he use?",
+        "options": "A. Chest X-ray\nB. CT scan\nC. Cardiac catheterization\nD. Coronary angiography\nE. Electrocardiogram (ECG)"
+    },
+    {
+        "id": "level3_55",
+        "question": "The doctor diagnosed Lan with a brain tumor. After examination, the doctor concluded that this was not a malignant brain tumor. So does Lan have cancer or not?",
+        "options": "A. Yes\nB. No\nC. Unknown"
+    },
+    {
+        "id": "level3_76",
+        "question": "Quynh is a famous model in Vietnam. As a model, taking good care of your skin is extremely important. What is the solution to help Quynh take care of her skin from the inside?",
+        "options": "A. Get enough sleep 4 hours/day\nB.Eat a lot of sweets\nC. Drink enough water every day, 1.5 - 2 liters"
+    },
+    {
+        "id": "level3_93",
+        "question": "The urethra is an important genital organ, serving as a tube that carries urine from the bladder to the outside of the body. What symptoms can be used to early identify inflammation of this organ?",
+        "options": "A. Urinating frequently during the day\nB. Urine mixed with pus or fresh blood\nC. The urinary tract is red and swollen and feels itchy"
+    },
+    {
+        "id": "level3_96",
+        "question": "Influenza is one of the most common diseases in the world, how to properly define this disease?",
+        "options": "A. An acute viral infection\nB.A sexually transmitted disease\nC. A food-borne disease"
+    },
+    {
+        "id": "level1_88",
+        "question": "What are the symptoms of urethritis?",
+        "options": "A. Urinating frequently during the day\nB. The amount of urine is usually not much\nC. Urine mixed with pus or fresh blood"
+    },
+    {
+        "id": "level1_120",
+        "question": "When should you see a doctor if you suspect you have Klinefelter syndrome?.",
+        "options": "A. When you become an adult\nB.Only when there are clear symptoms\nC. During puberty and adulthood\nD. No need to see a doctor"
+    },
+    {
+        "id": "level1_94",
+        "question": "What is abnormal uterine bleeding?.",
+        "options": "A. Abnormal bleeding from the uterus, different from the normal menstrual cycle\nB. Condition of bleeding from the uterus during the menstrual cycle\nC. Abnormal vaginal bleeding, unrelated to the uterus\nD. Abnormal bleeding from the vagina, in accordance with the menstrual cycle"
+    },
+    {
+        "id": "level1_37",
+        "question": "What is knee bursitis?.",
+        "options": "A. Inflammation of the fluid-filled sac in the knee joint\nB. Pleurisy condition\nC. Knee ligament inflammation"
+    },
+    {
+        "id": "level1_116",
+        "question": "What symptoms signal the presence of a pineal gland tumor?",
+        "options": "A. Dizziness, dizziness\nB. Abdominal pain, diarrhea\nC. Headache, vomiting due to increased intracranial pressure"
+    },
+    {
+        "id": "level1_38",
+        "question": "The doctor may prescribe the patient to perform some imaging diagnostics such as:?.",
+        "options": "A. X-ray\nB. MRI scan\nC. Ultrasound"
+    },
+    {
+        "id": "level1_65",
+        "question": "What are the symptoms of thumb flexor tendonitis?.",
+        "options": "A. A condition in which the thumb bounces slightly without pain or discomfort every time it moves\nB. The thumb is often fixed, stuck or locked in a bent position when the patient moves\nC. Pain in the tendon area, a lot of pain when moving, possibly swelling"
+    },
+    {
+        "id": "level1_110",
+        "question": "Who is at risk of getting laryngitis?",
+        "options": "A. People who are often exposed to toxic chemicals and allergens\nB. People with stomach acid reflux\nC. People with recurrent rhinosinusitis"
+    },
+    {
+        "id": "level1_11",
+        "question": "How to diagnose hepatitis?.",
+        "options": "A. Clinical examination\nB. Liver function test\nC. Liver biopsy"
+    },
+    {
+        "id": "level1_118",
+        "question": "What is Klinefelter syndrome?.",
+        "options": "A. Sexually transmitted diseases\nB. Genetic disease\nC. Diseases caused by toxins\nD. Disease caused by unhealthy diet"
+    },
+    {
+        "id": "level1_41",
+        "question": "Doctors can use corticosteroid injections to treat knee bursitis, true or false?.",
+        "options": "A. True\nB. False"
+    },
+    {
+        "id": "level1_104",
+        "question": "What effect does resting and drinking plenty of water have on treating the flu?.",
+        "options": "A. No effect\nB. Alleviate disease symptoms, helping patients feel more comfortable and at ease\nC. Increases the risk of other infections"
+    },
+    {
+        "id": "level1_92",
+        "question": "What do the symptoms of urethritis include?.",
+        "options": "A. Urinating frequently during the day\nB. Urine mixed with pus or fresh blood\nC. The urinary tract is red and swollen and feels itchy"
+    },
+    {
+        "id": "level1_25",
+        "question": "What is ductal carcinoma in situ?.",
+        "options": "A. Invasive cancer\nB.Non-invasive cancer\nC. Metastatic cancer\nD. Malignant cancer"
+    },
+    {
+        "id": "level1_44",
+        "question": "How is the Cryotheraphy procedure used to remove genital warts?.",
+        "options": "A. Use ice\nB.Use liquid nitrogen\nC. Use X-rays\nD. Using lasers"
+    },
+    {
+        "id": "level1_95",
+        "question": "How are the causes of abnormal uterine bleeding systematized?.",
+        "options": "A. PALM & COEIN\nB.POLYPE & COEIN\nC. PALM & COINS\nD. POLYPE & COINS"
+    },
+    {
+        "id": "level1_121",
+        "question": "What symptoms are common in infants and children with Klinefelter syndrome?.",
+        "options": "A. Rapid weight gain\nB. Muscle weakness, slow motor and intellectual development\nC. High fever\nD. Abdominal pain"
+    },
+    {
+        "id": "level1_91",
+        "question": "What diseases can urethritis cause?",
+        "options": "A. Prostatitis\nB. Epididymal orchitis\nC. Infertility"
+    },
+    {
+        "id": "level1_107",
+        "question": "What causes acute laryngitis?.",
+        "options": "A. Viral infection\nB.Smoking\nC. Eat hot and spicy food"
+    },
+    {
+        "id": "level1_84",
+        "question": "What methods of prevention of acute glomerulonephritis are recommended?",
+        "options": "A. Using antibiotics\nB. Use pain relievers\nC. Strengthen the immune system and minimize the risk of infectious diseases"
+    },
+    {
+        "id": "level1_21",
+        "question": "How can the spread of bacteria that cause diarrhea be avoided?.",
+        "options": "A. Enhance personal hygiene, environment, and living space\nB. Update knowledge about the spread of bacteria that cause diarrhea\nC. Take proper measures when someone has acute diarrhea"
+    },
+    {
+        "id": "level1_122",
+        "question": "What is the incidence of Klinefelter syndrome in men?.",
+        "options": "A. 1/100 male newborns\nB.1/1000 male newborns\nC. 1/10,000 male newborns\nD. 1/100,000 male newborns"
+    },
+    {
+        "id": "level1_19",
+        "question": "What are the measures to prevent diarrhea?.",
+        "options": "A. Enhance personal hygiene, environment, and living space\nB. Ensuring food safety and hygiene"
+    },
+    {
+        "id": "level1_98",
+        "question": "Who are the people at high risk of getting the flu?",
+        "options": "A. Only old people\nB. Anyone\nC. Only young people"
+    },
+    {
+        "id": "level1_74",
+        "question": "What high technology is used to treat hormonal acne?",
+        "options": "A. Laser treatment of acne\nB. Electrophoresis"
+    },
+    {
+        "id": "level1_83",
+        "question": "What is the cause of acute glomerulonephritis?.",
+        "options": "A. Infection\nB. Inherited from family\nC. Changes in the immune system due to diseases related to inflammation"
+    },
+    {
+        "id": "level1_111",
+        "question": "How to improve laryngitis?.",
+        "options": "A. Follow a scientific diet\nB. Limit talking too much, talking loudly, talking continuously, and shouting\nC. Avoid being in dry, smoky or dusty environments"
+    },
+    {
+        "id": "level1_72",
+        "question": "How to care for and protect skin from hormonal acne?.",
+        "options": "A. Wash your face 5 times a day\nB. Avoid rubbing and squeezing acne\nC. Going out without wearing a mask"
+    },
+    {
+        "id": "level1_123",
+        "question": "What is the cause of Klinefelter's disease?.",
+        "options": "A. Viral disease\nB. Bacterial disease\nC. Genetic disease\nD. Disease caused by stress"
+    },
+    {
+        "id": "level1_54",
+        "question": "What are the complications of right heart failure?.",
+        "options": "A. Atrial fibrillation\nB. Heart failure\nC. Heart valve problems\nD. Impaired kidney function\nE. Liver damage"
+    },
+    {
+        "id": "level1_73",
+        "question": "Why can acne affect psychology?.",
+        "options": "A. Acne only affects appearance\nB. Acne does not affect psychology\nC. Acne makes patients lose confidence"
+    },
+    {
+        "id": "level1_64",
+        "question": "What is the cause of thumb tendonitis?.",
+        "options": "A. Due to the heavy use of the thumb in many occupations\nB. Due to injury in daily activities or while playing sports\nC. Complications from some diseases such as diabetes, rheumatoid arthritis, psoriatic arthritis, gout"
+    },
+    {
+        "id": "level1_43",
+        "question": "Is it true or false that symptoms of genital warts cause discomfort, itching, and bleeding after sex?",
+        "options": "A. True\nB. False"
+    },
+    {
+        "id": "level1_97",
+        "question": "How many types of flu affect humans?.",
+        "options": "A. 1 type\nB.2 types\nC. 3 types"
+    },
+    {
+        "id": "level1_102",
+        "question": "What are the recommended antiviral medications for flu treatment?.",
+        "options": "A.Amoxicillin, Ceftriaxone, Azithromycin\nB. Oseltamivir, Zanamivir, Peramivir\nC. Metoprolol, Atenolol, Propranolol"
+    },
+    {
+        "id": "level1_26",
+        "question": "Can stage 0 breast cancer recur?.",
+        "options": "A. Yes\nB.No"
+    },
+    {
+        "id": "level1_33",
+        "question": "What is stage I ovarian cancer?.",
+        "options": "A. The appearance of cancer cells is limited to the ovary, has not invaded neighboring organs and has not metastasized far.\nB. The appearance of cancer cells that have invaded neighboring organs and other distant metastases.\nC. The appearance of cancer cells that have spread to other organs in the body."
+    },
+    {
+        "id": "level1_86",
+        "question": "Urethritis is caused by what agent?.",
+        "options": "A. Gonorrhea bacteria\nB.Chlamydia\nC. There is no causative agent"
+    },
+    {
+        "id": "level1_90",
+        "question": "What are the preventive measures for urethritis?.",
+        "options": "A. Avoid having sex with multiple people\nB. Regularly use condoms every time you have sex\nC. Eat enough nutrients to replenish energy"
+    },
+    {
+        "id": "level1_100",
+        "question": "How does the flu virus spread?.",
+        "options": "A. Transmitted through the digestive tract\nB. Sexually transmitted\nC. Directly transmitted through the respiratory tract"
+    },
+    {
+        "id": "level1_48",
+        "question": "What is right heart failure?.",
+        "options": "A. Condition in which the right ventricle does not pump blood effectively to the lungs\nB. Condition in which the left ventricle does not pump blood to the lungs effectively\nC. Condition in which the right ventricle does not pump blood to the body effectively\nD. Condition in which the left ventricle does not pump blood to the body effectively"
+    },
+    {
+        "id": "level1_18",
+        "question": "What is the main cause of acute diarrhea?.",
+        "options": "A. The body consumes inappropriate foods\nB. Food infection"
+    },
+    {
+        "id": "level1_113",
+        "question": "A mixed pineal tumor is a combination of what types of cells?.",
+        "options": "A. Cells grow slowly and grow quickly\nB. Slow growing cells and cancer cells\nC. Cancer cells and healthy cells"
+    },
+    {
+        "id": "level1_106",
+        "question": "How to prevent laryngitis?.",
+        "options": "A. Avoid smoking and stay away from secondhand smoke\nB.Drink lots of water\nC. Avoid eating late at night"
+    },
+    {
+        "id": "level1_7",
+        "question": "What complications can placenta previa cause in pregnant women?",
+        "options": "A. Severe bleeding\nB.Anemia\nC. No complications"
+    },
+    {
+        "id": "level1_24",
+        "question": "What does stage 0 breast cancer diagnosis include?.",
+        "options": "A. Mammography\nB. Ultrasound\nC. Magnetic resonance imaging (MRI)"
+    },
+    {
+        "id": "level1_79",
+        "question": "What effects do antithyroid drugs have?",
+        "options": "A. Prevents the thyroid gland's ability to create new hormones\nB. Causes the thyroid gland to stop producing hormones\nC. Destroys thyroid cells that produce hormones\nD. No information available"
+    },
+    {
+        "id": "level1_40",
+        "question": "To prevent knee bursitis, what should patients do?",
+        "options": "A. Maintain correct posture in daily life and work\nB. Avoid overexertion\nC. Frequent or repetitive knee bending movements can place great pressure on the knee joint"
+    },
+    {
+        "id": "level1_62",
+        "question": "When can symptoms of mitral valve stenosis increase in severity?.",
+        "options": "A. When the patient exerts himself\nB.When sleeping\nC. When drinking alcohol\nD. When eating heavy foods"
+    },
+    {
+        "id": "level1_23",
+        "question": "What treatments are used for patients with ductal carcinoma in situ?.",
+        "options": "A. Breast conservation surgery\nB. Radiation therapy\nC. Chemotherapy"
+    },
+    {
+        "id": "level1_10",
+        "question": "What are the symptoms of hepatitis?",
+        "options": "A. Headache, muscle pain, joint fatigue\nB. Yellow skin, yellow eyes\nC. Fatigue, loss of appetite"
+    },
+    {
+        "id": "level1_103",
+        "question": "What is the most effective way to prevent flu?.",
+        "options": "A. Wash your hands frequently\nB. Take antiviral medication\nC. Get a flu shot every year"
+    },
+    {
+        "id": "level1_105",
+        "question": "Symptoms of laryngitis?.",
+        "options": "A. Hoarse voice\nB.The annoying cough does not go away\nC. Difficulty swallowing"
+    },
+    {
+        "id": "level1_59",
+        "question": "What disease is mitral valve stenosis?.",
+        "options": "A. Cardiovascular disease\nB. Respiratory disease\nC. Digestive diseases\nD. Neurological disease"
+    },
+    {
+        "id": "level1_46",
+        "question": "Where can symptoms of genital warts appear in women?",
+        "options": "A. Inside the vagina\nB.Inside the nose\nC. Inside the ear\nD. Inside the eye"
+    },
+    {
+        "id": "level2_1",
+        "question": "Otitis externa and hearing loss in one ear can both be treated with what medications?",
+        "options": "Antibiotics or corticosteroids\nPain relievers and sleeping pills\nAntihypertensives and antihistamines"
+    },
+    {
+        "id": "level2_2",
+        "question": "What do acute pharyngitis and chronic pharyngitis have in common?",
+        "options": "Both diseases require bacterial testing for diagnosis\nBoth diseases can be treated with natural methods\nBoth diseases have common symptoms such as sore throat, difficulty swallowing, and fatigue"
+    },
+    {
+        "id": "level2_3",
+        "question": "How to distinguish between acute pharyngitis and chronic pharyngitis?",
+        "options": "Distinguished by duration, chronic pharyngitis lasts more weeks\nDistinguished by the cause of the disease, acute pharyngitis is more often caused by a virus\nDistinguished by symptoms, acute pharyngitis often has fever and hoarseness"
+    },
+    {
+        "id": "level2_10",
+        "question": "What are the measures to prevent sexually transmitted diseases such as gonorrhea, genital herpes, chlamydia?",
+        "options": "Have as many sexual partners as possible\nUse condoms when having sex\nHave sex while sick\nBe faithful to one husband and one wife"
+    },
+    {
+        "id": "level2_11",
+        "question": "Which of the following diseases has the longest incubation period?",
+        "options": "Syphilis\nChlamydia\nGonorrhea"
+    },
+    {
+        "id": "level2_12",
+        "question": "What is the diagnostic method for Chlamydia and hepatitis B?",
+        "options": "Blood tests\nUrine test\nVaginal fluid testing"
+    },
+    {
+        "id": "level2_16",
+        "question": "What are the general similarities between stomach polyps and peptic ulcers?",
+        "options": "Both diseases can develop from inflammation and damage to the lining of the stomach and duodenum\nBoth diseases cause epigastric pain, indigestion, nausea and vomiting\nBoth diseases are mostly life-threatening\nBoth diseases are asymptomatic"
+    },
+    {
+        "id": "level2_17",
+        "question": "By what measure do people classify the degree of myopia and astigmatism?",
+        "options": "Meter\nDiop\nLiter\nKg"
+    },
+    {
+        "id": "level2_18",
+        "question": "What are the common treatments for nearsightedness, astigmatism and farsightedness?",
+        "options": "Use eyeglasses\nUse contact lenses\nUse antibiotics\nSurgery"
+    },
+    {
+        "id": "level2_23",
+        "question": "What do acne and flat warts have in common?",
+        "options": "Both are skin diseases\nBoth cause serious complications\nBoth carry the risk of spreading infection from one person to another"
+    },
+    {
+        "id": "level2_24",
+        "question": "What skin symptoms do flat warts and hormonal warts cause?",
+        "options": "Whiteheads\nBlackhead\nPustules\nCyst\nNodules"
+    },
+    {
+        "id": "level2_25",
+        "question": "What measures help prevent and reduce the risk of acne diseases?",
+        "options": "Keep the skin area clean and limit direct contact with the sick person\nSharing personal items\nSee your doctor if you have strange symptoms"
+    },
+    {
+        "id": "level2_29",
+        "question": "What is the correct statement about people with kidney cancer and thyroid cancer?",
+        "options": "Females have a higher incidence of both diseases\nMen have a higher incidence of both diseases\nWomen have a higher incidence of thyroid cancer\nMen have a higher incidence of kidney cancer"
+    },
+    {
+        "id": "level2_30",
+        "question": "How to prevent otitis media with effusion and otitis externa?",
+        "options": "Keep your ears clean\nDo not smoke and avoid exposure to secondhand smoke\nAvoid contact with water\nLimit lying down too much"
+    },
+    {
+        "id": "level2_31",
+        "question": "Which of the following 3 diseases occurs mostly in children?",
+        "options": "Hepatitis A\nHepatitis B\nHepatitis C"
+    },
+    {
+        "id": "level2_32",
+        "question": "What are the general symptoms of hepatitis A, hepatitis B, and hepatitis C?",
+        "options": "Fever\nVomiting or nausea\nJaundice\nRed eyes\nPale urine"
+    },
+    {
+        "id": "level2_33",
+        "question": "Eating raw shellfish from contaminated water causes what disease?",
+        "options": "Hepatitis A\nHepatitis B\nHepatitis C"
+    },
+    {
+        "id": "level2_34",
+        "question": "What complications can hepatitis B and hepatitis C cause?",
+        "options": "Liver Cancer\nKidney cancer\nStomach cancer\nCirrhosis"
+    },
+    {
+        "id": "level2_35",
+        "question": "Which of the following diseases has vaccines to prevent?",
+        "options": "Hepatitis A\nHepatitis B\nHepatitis C"
+    },
+    {
+        "id": "level2_36",
+        "question": "Vaccines are antigenic preparations originating from pathogenic microorganisms or microorganisms with the same antigenic structure as pathogenic microorganisms, which have been prepared to ensure the necessary safety, making it effective for the body. create immunity against pathogens. Vaccines can prevent which of the following diseases?",
+        "options": "Hepatitis A\nHepatitis B\nHepatitis C"
+    },
+    {
+        "id": "level2_36",
+        "question": "Which of the following diseases is not contagious?",
+        "options": "Diabetes\nGout\nSleep\nSinusitis"
+    },
+    {
+        "id": "level2_37",
+        "question": "Food poisoning, stomach pain, digestive disorders should be avoided",
+        "options": "Eat cooked, drink boiled\nDirty, rancid food\nStress\nExercise regularly"
+    },
+    {
+        "id": "level2_38",
+        "question": "General symptoms of heart failure, respiratory failure, kidney failure",
+        "options": "Swollen feet and ankles\nFingers, toes and lips are pale and pale\nStomach\nShortness of breath"
+    },
+    {
+        "id": "level2_39",
+        "question": "What should people with high blood fat, insomnia, and vestibular disorders do?",
+        "options": "Exercise regularly\nAvoid tension and stress\nEnhance reading\nAcupuncture"
+    },
+    {
+        "id": "level2_40",
+        "question": "What are the causes of fever?",
+        "options": "Excessive exercise\nViruses, infections\nVaccination, teething\nGetting cold"
+    },
+    {
+        "id": "level4_4",
+        "question": "Xiao Tang is a famous female singer in China. Recently, her voice has seriously deteriorated due to unpleasant symptoms such as sore throat, throat irritation and difficulty swallowing. What disease could Xiao Duong have?",
+        "options": "Sore throat due to tonsillitis\nDiabetes\nNasopharyngeal cancer\nInternal hemorrhoids"
+    },
+    {
+        "id": "level4_9",
+        "question": "Mai is currently 9 months pregnant. There are many infectious diseases that can be transmitted from mother to child during pregnancy or normal birth. Which of the following diseases can be transmitted like this?",
+        "options": "Genital herpes\nGonorrhea\nChlamydia\nSyphilis"
+    },
+    {
+        "id": "level4_27",
+        "question": "Mr. Bien is 73 years old this year. During a family meal, he suddenly had one side of his mouth and face distorted. 3 months later he passed away. Which of the following diseases could Mr. Bien have suffered from?",
+        "options": "Brain tumors\nLack of brain\nCerebral vascular occlusion\nStroke"
+    },
+    {
+        "id": "level4_28",
+        "question": "Brain tumor is a condition in which tumors form in the skull, threatening the patient's life. Brain tumors usually have two types: benign and malignant. What do they have in common?",
+        "options": "These are all dangerous diseases\nIt's all cancer\nThe exact cause cannot be determined\nOccurs most often in the elderly"
+    },
+    {
+        "id": "level4_35",
+        "question": "Vaccines are antigenic preparations originating from pathogenic microorganisms or microorganisms with the same antigenic structure as pathogenic microorganisms, which have been prepared to ensure the necessary safety, making it effective for the body. create immunity against pathogens. Vaccines can prevent which of the following diseases?",
+        "options": "Hepatitis A\nHepatitis B\nHepatitis C"
+    }
+]
