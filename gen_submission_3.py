@@ -45,7 +45,7 @@ def bot(question: str, options: str, test_case: Dict[str, str], max_new_tokens: 
             break
         generation_output = model(prompt, max_tokens=max_new_tokens, stream=False, temperature=0.2)
         text = generation_output['choices'][0]['text'].strip()
-        print(text)
+        print("Raw text: ", text)
         count += 1
 
         if is_invalid_format(extract_choices(text)):
@@ -58,12 +58,10 @@ def bot(question: str, options: str, test_case: Dict[str, str], max_new_tokens: 
                     print("Fixed , : ", text)
                 else:
                     text = "[" + text[0].strip() + "]"
-                    print("Fixed none   : ", text)
+                    print("Fixed none : ", text)
 
         choices = extract_choices(text)
         choices = [item for item in choices if item in options_list]
-
-    print(choices)
 
     output = binary_output(choices, test_case)  
     return output
