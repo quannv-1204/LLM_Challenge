@@ -28,27 +28,36 @@ print(f"Successfully loaded the models into memory")
 
 
 
-def bot(question: str, options: str, test_case: Dict[str, str], max_new_tokens: int=32,  context_score: int=0.35, save_top_evidenct_amount=4) -> str: 
+def bot(question: str, options: str, test_case: Dict[str, str], max_new_tokens: int=32,  context_score: int=0.35, save_top_evidenct_amount=8) -> str: 
     
     query = generate_query(question, options, model)
     print(query)
 
     instruction = "Represent this sentence for searching relevant passages: "
     query_1 = instruction + query
-
     query_2 = instruction + question + "\n" + fix_options_format(options)
-    print(query_2)
+
     docs_1 = db_disease.similarity_search_with_relevance_scores(query_1, k=10, score_threshold=0.3)
     docs_2 = db_disease.similarity_search_with_relevance_scores(query_2, k=10, score_threshold=0.3)
     docs = docs_1 + docs_2
-    scores = rerank(model_rerank, tokenizer_rerank, question, docs)
+    text_only_docs = list(set([item[0].page_content for item in docs]))
+
+    filtered_docs = []
+    for text in text_only_docs:
+        for doc in docs:
+            if text == doc[0].page_content:
+                filtered_docs.append(doc)
+                break
+
+    scores = rerank(model_rerank, tokenizer_rerank, question + "\n" + fix_options_format(options), filtered_docs)
     top_evidences = []
     for j in range(save_top_evidenct_amount):
-        top_evidences.append(docs[scores.index(max(scores))])
+        top_evidences.append(filtered_docs[scores.index(max(scores))])
         scores[scores.index(max(scores))] = -100
 
-    prompt = make_prompt(question, options, docs)
-    print(prompt)
+    prompt = make_prompt(question, options, top_evidences)
+    print(prompt)  
+    
     text = ""
     count = 0
     choices = ["0"]
