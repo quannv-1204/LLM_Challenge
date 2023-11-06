@@ -1,20 +1,23 @@
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 import csv
+from transformers import AutoModelForSequenceClassification, AutoTokenizer
 from process_data.prompt_const import *
 from typing import List, Tuple, Dict, Any
 from process_data.utils import *
 from llama_cpp_cuda import Llama
 import time
 
-model = Llama("/mnt/sdd/nguyen.van.quan/Researchs/Qlora/pretrain/fashiongpt-70b-v1.1.Q4_K_M.gguf", n_ctx=8192, n_gpu_layers=100, n_gqa=8)
+model = Llama("/mnt/sdd/nguyen.van.quan/Researchs/Qlora/output/custom-13b/gguf/7B.Q8_0.gguf", n_ctx=8192, n_gpu_layers=100, n_gqa=8)
 
 encode_kwargs = {'normalize_embeddings': True}
 model_kwargs = {'device': 'cuda'}
-embeddings_model_name  = "BAAI/bge-base-en-v1.5"
+embeddings_model_name  = "BAAI/llm-embedder"
 embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name, model_kwargs=model_kwargs, encode_kwargs=encode_kwargs)
 
-
+tokenizer_rerank = AutoTokenizer.from_pretrained('BAAI/bge-reranker-large')
+model_rerank = AutoModelForSequenceClassification.from_pretrained('BAAI/bge-reranker-large').to("cuda")
+model_rerank.eval()
 
 persist_directory_context = "data/db/en_faiss_disease_db"
 db_disease = FAISS.load_local(persist_directory_context, embeddings)
@@ -25,12 +28,24 @@ print(f"Successfully loaded the models into memory")
 
 
 
-def bot(question: str, options: str, test_case: Dict[str, str], max_new_tokens: int=32,  context_score: int=0.35) -> str: 
+def bot(question: str, options: str, test_case: Dict[str, str], max_new_tokens: int=32,  context_score: int=0.35, save_top_evidenct_amount=4) -> str: 
     
     query = generate_query(question, options, model)
+    print(query)
+
     instruction = "Represent this sentence for searching relevant passages: "
-    query = instruction + query
-    docs = db_disease.similarity_search_with_relevance_scores(query, k=5, score_threshold=0.3)
+    query_1 = instruction + query
+
+    query_2 = instruction + question + "\n" + fix_options_format(options)
+    print(query_2)
+    docs_1 = db_disease.similarity_search_with_relevance_scores(query_1, k=10, score_threshold=0.3)
+    docs_2 = db_disease.similarity_search_with_relevance_scores(query_2, k=10, score_threshold=0.3)
+    docs = docs_1 + docs_2
+    scores = rerank(model_rerank, tokenizer_rerank, query_2, docs)
+    top_evidences = []
+    for j in range(save_top_evidenct_amount):
+        top_evidences.append(docs[scores.index(max(scores))])
+        scores[scores.index(max(scores))] = -100
 
     prompt = make_prompt(question, options, docs)
     print(prompt)
