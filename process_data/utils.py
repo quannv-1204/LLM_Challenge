@@ -6,6 +6,7 @@ from typing import List, Tuple, Dict, Any
 import re
 from process_data.prompt_const import *
 from googletrans import Translator
+import torch
 
 def _make_w_io_base(f, mode: str, encoding: str):
     if not isinstance(f, io.IOBase):
@@ -71,9 +72,15 @@ def generate_query(question: str, options: str, model: Any):
 
     sentence = model(prompt)
     text = sentence['choices'][0]['text']
-    print(text)
-    return text.split("Query:")[-1].split("\n")[0]
+    # print(text)
+    return prompt + "Query: " + text.split("Query:")[-1].split("\n")[0]
 
+def rerank(model, tokenizer, query, docs):
+    pairs = [[query, item[0].page_content] for item in docs]
+    with torch.no_grad():
+        inputs = tokenizer(pairs, padding=True, truncation=True, return_tensors='pt', max_length=512).to("cuda")
+        scores = model(**inputs, return_dict=True).logits.view(-1, ).float()
+        return scores.to('cpu').tolist()
 
 def document_ranking_prompt(question, list_contexts):
 

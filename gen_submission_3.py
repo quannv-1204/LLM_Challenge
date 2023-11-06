@@ -41,7 +41,7 @@ def bot(question: str, options: str, test_case: Dict[str, str], max_new_tokens: 
     docs_1 = db_disease.similarity_search_with_relevance_scores(query_1, k=10, score_threshold=0.3)
     docs_2 = db_disease.similarity_search_with_relevance_scores(query_2, k=10, score_threshold=0.3)
     docs = docs_1 + docs_2
-    scores = rerank(model_rerank, tokenizer_rerank, query_2, docs)
+    scores = rerank(model_rerank, tokenizer_rerank, question, docs)
     top_evidences = []
     for j in range(save_top_evidenct_amount):
         top_evidences.append(docs[scores.index(max(scores))])
