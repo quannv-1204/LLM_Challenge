@@ -20,7 +20,7 @@ persist_directory = f"data/db/en_faiss_disease_db"
 
 encode_kwargs = {'normalize_embeddings': True}
 model_kwargs = {'device': 'cuda'}
-embeddings_model_name  = "BAAI/bge-base-en-v1.5"
+embeddings_model_name  = "BAAI/llm-embedder"
 embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name, model_kwargs=model_kwargs, encode_kwargs=encode_kwargs)
 
 chunk_size = 512

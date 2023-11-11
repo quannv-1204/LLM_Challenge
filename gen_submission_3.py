@@ -8,7 +8,7 @@ from process_data.utils import *
 from llama_cpp_cuda import Llama
 import time
 
-model = Llama("/mnt/sdd/nguyen.van.quan/Researchs/Qlora/output/custom-13b/gguf/7B.Q8_0.gguf", n_ctx=8192, n_gpu_layers=100, n_gqa=8)
+model = Llama("/mnt/sdd/nguyen.van.quan/Researchs/Qlora/output/gguf/7b.q8.gguf", n_ctx=8192, n_gpu_layers=100, n_gqa=8)
 
 encode_kwargs = {'normalize_embeddings': True}
 model_kwargs = {'device': 'cuda'}
@@ -28,27 +28,15 @@ print(f"Successfully loaded the models into memory")
 
 
 
-def bot(question: str, options: str, test_case: Dict[str, str], max_new_tokens: int=32,  context_score: int=0.35, save_top_evidenct_amount=8) -> str: 
-    
-    query = generate_query(question, options, model)
-    print(query)
+def bot(question: str, options: str, test_case: Dict[str, str], max_new_tokens: int=32,  context_score: int=0.35, save_top_evidenct_amount=10) -> str: 
 
     instruction = "Represent this sentence for searching relevant passages: "
-    query_1 = instruction + query
     query_2 = instruction + question + "\n" + fix_options_format(options)
 
-    docs_1 = db_disease.similarity_search_with_relevance_scores(query_1, k=10, score_threshold=0.3)
-    docs_2 = db_disease.similarity_search_with_relevance_scores(query_2, k=10, score_threshold=0.3)
-    docs = docs_1 + docs_2
-    text_only_docs = list(set([item[0].page_content for item in docs]))
 
-    filtered_docs = []
-    for text in text_only_docs:
-        for doc in docs:
-            if text == doc[0].page_content:
-                filtered_docs.append(doc)
-                break
+    filtered_docs = db_disease.similarity_search_with_relevance_scores(query_2, k=40, score_threshold=0.3)
 
+    
     scores = rerank(model_rerank, tokenizer_rerank, question + "\n" + fix_options_format(options), filtered_docs)
     top_evidences = []
     for j in range(save_top_evidenct_amount):
@@ -69,20 +57,19 @@ def bot(question: str, options: str, test_case: Dict[str, str], max_new_tokens: 
             break
         generation_output = model(prompt, max_tokens=max_new_tokens, stream=False, temperature=0.2)
         text = generation_output['choices'][0]['text'].strip()
-        print("Raw text: ", text)
+        print("\nRaw text: ", text)
         count += 1
 
         if is_invalid_format(extract_choices(text)):
-            if count > 0:
-                if "." in text:
-                    text = "[" + text.split(".")[0].strip() + "]"
-                    print("Fixed . : ", text)
-                elif "," in text and ("[" not in text):
-                    text = "[" + text + "]"
-                    print("Fixed , : ", text)
-                else:
-                    text = "[" + text[0].strip() + "]"
-                    print("Fixed none : ", text)
+            if "." in text:
+                text = "[" + text.split(".")[0].strip() + "]"
+                print("Fixed . : ", text)
+            elif "," in text and ("[" not in text):
+                text = "[" + text + "]"
+                print("Fixed , : ", text)
+            else:
+                text = "[" + text[0].strip() + "]"
+                print("Fixed none : ", text)
 
         choices = extract_choices(text)
         choices = [item for item in choices if item in options_list]
@@ -99,7 +86,7 @@ if __name__ == "__main__":
         header = ['id', 'answer']
         # write the header
         writer.writerow(header)
-
+        gen_time = []
         for data in test_datas:
             question = data["question"]
             options = data["options"]
@@ -108,4 +95,6 @@ if __name__ == "__main__":
             output = bot(question, options, data)
             end = time.time()
             print(f"\nGen time: {end-start}s\n")
+            gen_time.append(end-start)
             writer.writerow([data['id'], output])
+    print(f"Max Gen Time: {max(gen_time)}s\n")

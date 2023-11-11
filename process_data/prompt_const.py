@@ -191,34 +191,30 @@ Query: ["Vietnamese query for first disease", "Vietnamese query for second disea
 ### Assistant:
 """
 
-SEARCH_QUERY_GENERATION_TEMPLATE = """### Instruction: 
-summarize the Input below into a short query about disease that can be used to search disease in Medical database.
-Try and generate a grammatical sentence for the search query. The search query should only contain the information about symptoms and disease, 
-This search query must not be longer than 15 words. Do it carefully step by step as follow:
-step 1: find the symptoms or disease mentioned in the input.
-step 2: find out what is the input mainly about, there may have noisy information like name of patient, irrelevant information,... So you must be careful. Remember that important information usually stand at the end of Input
-step 3: With information in step 2 and step 3, generate a short search query and response in this format:
-Query: [Your Query]
+SEARCH_QUERY_GENERATION_TEMPLATE = """### Instruction:\nSummarize the multiple choice question in the Input below into a short query about medical domain that can be used to search in Medical database.
+Try and generate a grammatical sentence for the search query. This search query must not be longer than 15 words. Think carefully step by step as follow:
+step 1: find the symptoms, disease or medical issue mentioned in the input.
+step 2: find out what is the input mainly about, there may have noisy information like name of patient, irrelevant information,... So you must be careful. Important information usually stand at the end of question
+step 3: With information in step 1 and step 2, generate a short search query and response in this format:
+Query: Your Query
 
-Input: {question}
+###Input:\n{question}
 
-### Response:
-"""
+Answer in this format:
+Query: Your Query
 
-MULTIPLE_CHOICE_TEMPLATE = """### Instruction: 
-Given multiple choices Question and Context, each question has from 2 to 6 options, of which at least one is correct. Use the provided context to choose the correct answer
+### Response:\n"""
+
+MULTIPLE_CHOICE_TEMPLATE = """### Instruction:\nGiven multiple choices Question and Context, each question has from 2 to 6 options, of which at least one is correct. Use the provided context to choose the correct answer
 Your response must only contains your choices, do not explain or add additional information.
 ONLY use the contexts provided to choose answer. If context is not enough to answer or no context is provided, you are free to choose between the given options.
 Only response with your choice, example: [A, B, C]
 
 Answer in this format: [first choice, second choice,...]
 
-Context: 
-{context}
+### Input:\nContext:\n{context}
 Question: {question}
 
 Answer in this format: [first choice, second choice,...]
-Your answer:
 
-### Response:
-"""
+### Response:\n"""
