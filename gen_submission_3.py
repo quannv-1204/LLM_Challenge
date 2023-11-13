@@ -31,13 +31,13 @@ print(f"Successfully loaded the models into memory")
 def bot(question: str, options: str, test_case: Dict[str, str], max_new_tokens: int=32,  context_score: int=0.35, save_top_evidenct_amount=10) -> str: 
 
     instruction = "Represent this sentence for searching relevant passages: "
-    query_2 = instruction + question + "\n" + fix_options_format(options)
+    query_2 = instruction + question + "\n" + options
 
 
     filtered_docs = db_disease.similarity_search_with_relevance_scores(query_2, k=40, score_threshold=0.3)
 
     
-    scores = rerank(model_rerank, tokenizer_rerank, question + "\n" + fix_options_format(options), filtered_docs)
+    scores = rerank(model_rerank, tokenizer_rerank, question + "\n" + options, filtered_docs)
     top_evidences = []
     for j in range(save_top_evidenct_amount):
         top_evidences.append(filtered_docs[scores.index(max(scores))])
