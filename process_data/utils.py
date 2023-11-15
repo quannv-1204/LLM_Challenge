@@ -176,7 +176,6 @@ def fix_options_format(text):
     if '' in lines:
         lines.remove('')
     options = ["A", "B", "C", "D", "E", "F"]
-
     for i, line in enumerate(lines):
         if not any(option + "." in line for option in options):
             # If none of the options "A.", "B.", or "C." are found in the line, add "A." as a default option
@@ -187,22 +186,14 @@ def fix_options_format(text):
 
 
 def extract_options(options: str,):
-    options = fix_options_format(options)
     options = options.strip().split("\n")
     options_list = [op[0] for op in options]
     return options_list
 
-def binary_output(model_choice: List[str], test_case: Dict[str, str]):
-    """
-    test_case = {
-    "id": "level3_5",
-    "question": "Có bao nhiêu loại rau tiền đạo biết rằng trong bóng đá thường mỗi đội có tối đa 3 tiền đạo trên sân?",
-    "options": "A. 2\nB.3\nC. 4\nD. 5\n"
-    }
-    print(binary_output(['A', 'C'], test_case))
-    """
+def binary_output(model_choice: List[str], options: str):
 
-    options_list = extract_options(test_case["options"])
+
+    options_list = extract_options(options)
     
     assert set(model_choice).issubset(options_list), "There is an option in model_choice that is not in the options list"
 
