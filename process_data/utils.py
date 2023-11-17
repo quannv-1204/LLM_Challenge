@@ -5,6 +5,7 @@ import json
 from typing import List, Tuple, Dict, Any
 import re
 from process_data.prompt_const import *
+from googletrans import Translator
 import torch
 
 def _make_w_io_base(f, mode: str, encoding: str):
@@ -62,6 +63,19 @@ def find_keywords(question, llm):
     print(keywords)
     return keywords
 
+
+def convert_disease_name(sentence: str, mapping)-> str:
+    for k,v in mapping.items():
+        occurrences = [i for i in range(len(sentence)) if sentence.lower().startswith(k, i)]
+        while len(occurrences) !=0:
+            pos = occurrences[0]
+            if pos > 0 and sentence[pos-1] != ' ':
+                break
+            pre = sentence[:pos].strip()
+            post = sentence[pos+len(k):].strip()
+            sentence = pre + " " + v.strip() + " " + post
+            occurrences = [i for i in range(len(sentence)) if sentence.lower().startswith(k, i)]
+    return sentence
 
 def generate_query(question: str, options: str, model: Any):
     # Define regular expressions to match the disease names and queries
@@ -129,7 +143,7 @@ def make_prompt(query, options, list_context):
         [
             "".join(
                 [
-                    f"{item[0].metadata['disease']}: <{item[0].page_content}>\n"
+                    f"{item[0].metadata['disease'].title()}: <{item[0].page_content}>\n"
                 ]      
             )   for i, item in enumerate(list_context)
         ]
