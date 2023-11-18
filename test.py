@@ -49,28 +49,51 @@ def translate_vi2en(vi_texts: str) -> str:
     return en_texts
 
 
+# def preprocess(data_row):
+#     text2trans = []
+#     options = ["A", "B", "C", "D", "E", "F"]
+    
+#     for j in range(1, len(data_row)):
+#         if j >= 2:
+#             if "." in data_row[j]:
+#                 data_row[j] = data_row[j][data_row[j].index(".")+1:].strip()
+#             else:
+#                 data_row[j] = data_row[j].strip()
+#             data_row[j] = f"{options[j-2]}. " + data_row[j]
+#         text = convert_disease_name(data_row[j], mapping)
+#         text2trans.append(text)
+
+#     res = translate_vi2en(text2trans)
+
+#     en_question = res[0]
+#     list_ops = ""
+#     for i, op in enumerate(res[1:]):            
+#         list_ops += op + "\n"
+
+#     return en_question, list_ops
+
 def preprocess(data_row):
     text2trans = []
     options = ["A", "B", "C", "D", "E", "F"]
     
-    for j in range(1, len(data_row)):
-        if j >= 2:
-            if "." in data_row[j]:
-                data_row[j] = data_row[j][data_row[j].index(".")+1:].strip()
-            else:
-                data_row[j] = data_row[j].strip()
-            data_row[j] = f"{options[j-2]}. " + data_row[j]
-        text = convert_disease_name(data_row[j], mapping)
-        text2trans.append(text)
+    for j in range(2, len(data_row)):
+        if "." in data_row[j]:
+            data_row[j] = data_row[j][data_row[j].index(".")+1:].strip()
+        else:
+            data_row[j] = data_row[j].strip()
+        data_row[j] = f"{options[j-2]}. " + data_row[j]
+
+    list_ops = " xxx ".join(i for i in data_row[2:])
+    text2trans = data_row[1] + " xxx " + list_ops
+  
 
     res = translate_vi2en(text2trans)
-
+    res = res[0].split(" xxx ")
     en_question = res[0]
-    list_ops = ""
-    for i, op in enumerate(res[1:]):            
-        list_ops += op + "\n"
+    en_list_ops = "\n".join(i for i in res[1:])
 
-    return en_question, list_ops
+    return en_question, en_list_ops
+
 
 def inference(question: str, options: str, max_new_tokens: int=32, save_top_evidenct_amount=10) -> str: 
 
@@ -88,7 +111,6 @@ def inference(question: str, options: str, max_new_tokens: int=32, save_top_evid
         scores[scores.index(max(scores))] = -100
 
     prompt = make_prompt(question, options, top_evidences)
-    print(prompt)  
     
     text = ""
     count = 0
@@ -113,13 +135,16 @@ def inference(question: str, options: str, max_new_tokens: int=32, save_top_evid
             elif "," in text and ("[" not in text):
                 text = "[" + text + "]"
                 print("Fixed , : ", text)
+            elif any(len(i) for i in text.split(" ")) == 1:
+                text = "[" + ",".join(i for i in text.split(" ")) + "]"
+                print("Fixed : ", text)
             else:
                 text = "[" + text[0].strip() + "]"
                 print("Fixed none : ", text)
 
-        choices = extract_choices(text)
+        choices = sorted(list(set(extract_choices(text))))
         choices = [item for item in choices if item in options_list]
-
+        print("Choices: ", choices)
     output = binary_output(choices, options)  
     return output
 
@@ -135,7 +160,8 @@ def predict(input_file_path, output_file_path):
         data_row = data_row.dropna()
         data_id = data_row["id"]
         question, options = preprocess(data_row)
-
+        print("\n", f"{data_row[0]}: {question}")
+        print(options, "\n")
         # Start inference
         answer = inference(question, options) # infer
         prediction.loc[i] = [data_id, answer]
