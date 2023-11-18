@@ -5,7 +5,6 @@ import json
 from typing import List, Tuple, Dict, Any
 import re
 from process_data.prompt_const import *
-from googletrans import Translator
 import torch
 
 def _make_w_io_base(f, mode: str, encoding: str):
