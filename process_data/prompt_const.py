@@ -205,16 +205,16 @@ Query: Your Query
 
 ### Assistant:\n"""
 
-MULTIPLE_CHOICE_TEMPLATE = """### System:\nGiven multiple choices Question and Context, each question has from 2 to 6 options, of which at least one is correct. Use the provided context to choose the correct answer
+MULTIPLE_CHOICE_TEMPLATE = """### Instruction:\nGiven multiple choices Question and Context, each question has from 2 to 6 options, of which at least one is correct. Use the provided context to choose the correct answer
 Your response must only contains your choices, do not explain or add additional information.
 ONLY use the contexts provided to choose answer. If context is not enough to answer or no context is provided, you are free to choose between the given options.
 Only response with your choice, example: [A, B, C]
 
 Answer in this format: [first choice, second choice,...]
 
-### Human:\nContext:\n{context}
+### Input:\nContext:\n{context}
 Question: {question}
 
 Answer in this format: [first choice, second choice,...]
 
-### Assistant:\n"""
+### Response:\n"""
