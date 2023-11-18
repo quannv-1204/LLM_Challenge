@@ -27,8 +27,6 @@ device_vi2en = torch.device("cuda")
 model_vi2en.to(device_vi2en)
 model_vi2en.eval()
 
-mapping = jload("mapping.json")
-
 print(f"Successfully loaded the models into memory")
 
 
@@ -49,28 +47,6 @@ def translate_vi2en(vi_texts: str) -> str:
     return en_texts
 
 
-# def preprocess(data_row):
-#     text2trans = []
-#     options = ["A", "B", "C", "D", "E", "F"]
-    
-#     for j in range(1, len(data_row)):
-#         if j >= 2:
-#             if "." in data_row[j]:
-#                 data_row[j] = data_row[j][data_row[j].index(".")+1:].strip()
-#             else:
-#                 data_row[j] = data_row[j].strip()
-#             data_row[j] = f"{options[j-2]}. " + data_row[j]
-#         text = convert_disease_name(data_row[j], mapping)
-#         text2trans.append(text)
-
-#     res = translate_vi2en(text2trans)
-
-#     en_question = res[0]
-#     list_ops = ""
-#     for i, op in enumerate(res[1:]):            
-#         list_ops += op + "\n"
-
-#     return en_question, list_ops
 
 def preprocess(data_row):
     text2trans = []
