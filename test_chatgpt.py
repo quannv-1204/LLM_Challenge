@@ -1,0 +1,173 @@
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.vectorstores import FAISS
+import pandas as pd
+from transformers import AutoModelForSequenceClassification, AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForTokenClassification, pipeline
+from process_data.prompt_const import *
+from process_data.utils import *
+import time
+import openai
+
+openai.api_type = "azure"
+openai.api_version = "2023-03-15-preview"
+openai.api_key = "0140412acf0e4f69a00b0c63c454a2e8"
+openai.api_base = "https://thangtd.openai.azure.com/"
+deployment_name = "GPT35"
+
+encode_kwargs = {'normalize_embeddings': True}
+model_kwargs = {'device': 'cuda'}
+embeddings_model_name  = "BAAI/llm-embedder"
+embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name, model_kwargs=model_kwargs, encode_kwargs=encode_kwargs)
+
+tokenizer_rerank = AutoTokenizer.from_pretrained('BAAI/bge-reranker-large')
+model_rerank = AutoModelForSequenceClassification.from_pretrained('BAAI/bge-reranker-large').to("cuda")
+model_rerank.eval()
+
+persist_directory_context = "data/db/new_en_faiss_disease_db"
+db_disease = FAISS.load_local(persist_directory_context, embeddings)
+
+tokenizer_vi2en = AutoTokenizer.from_pretrained("vinai/vinai-translate-vi2en", src_lang="vi_VN")
+model_vi2en = AutoModelForSeq2SeqLM.from_pretrained("vinai/vinai-translate-vi2en")
+device_vi2en = torch.device("cuda")
+model_vi2en.to(device_vi2en)
+model_vi2en.eval()
+
+ner_tokenizer = AutoTokenizer.from_pretrained("NlpHUST/ner-vietnamese-electra-base")
+ner_model = AutoModelForTokenClassification.from_pretrained("NlpHUST/ner-vietnamese-electra-base")
+ner = pipeline("ner", model=ner_model, tokenizer=ner_tokenizer)
+
+mapping = jload("data/mapping.json")
+print(f"Successfully loaded the models into memory")
+
+
+
+
+
+
+def translate_vi2en(vi_texts: str) -> str:
+    input_ids = tokenizer_vi2en(vi_texts, padding=True, return_tensors="pt").to(device_vi2en)
+    output_ids = model_vi2en.generate(
+        **input_ids,
+        decoder_start_token_id=tokenizer_vi2en.lang_code_to_id["en_XX"],
+        num_return_sequences=1,
+        num_beams=5,
+        early_stopping=True
+    )
+    en_texts = tokenizer_vi2en.batch_decode(output_ids, skip_special_tokens=True)
+    return en_texts
+
+
+
+def preprocess(data_row):
+    text2trans = []
+    options = ["A", "B", "C", "D", "E", "F"]
+    
+    for j in range(2, len(data_row)):
+        if "." in data_row[j]:
+            data_row[j] = data_row[j][data_row[j].index(".")+1:].strip()
+        else:
+            data_row[j] = data_row[j].strip()
+        data_row[j] = f"{options[j-2]}. " + data_row[j]
+
+    list_ops = " xxx ".join(i for i in data_row[2:])
+    text2trans = convert_name(data_row[1], ner) + " xxx " + list_ops
+    text2trans = mapping_func(text2trans, mapping)
+
+    res = translate_vi2en(text2trans)
+    res = res[0].split(" xxx ")
+    en_question = res[0]
+    en_list_ops = "\n".join(i for i in res[1:])
+
+    return en_question, en_list_ops
+
+
+def inference(question: str, options: str, max_new_tokens: int=32, save_top_evidenct_amount=15) -> str: 
+
+    instruction = "Represent this sentence for searching relevant passages: "
+    query_2 = instruction + question + options.replace("\n", " ")
+
+
+    filtered_docs = db_disease.similarity_search_with_relevance_scores(query_2, k=40, score_threshold=0.3)
+
+    
+    scores = rerank(model_rerank, tokenizer_rerank, question + options.replace("\n", " "), filtered_docs)
+    top_evidences = []
+    for j in range(save_top_evidenct_amount):
+        top_evidences.append(filtered_docs[scores.index(max(scores))])
+        scores[scores.index(max(scores))] = -100
+
+    prompt = make_prompt(question, options, top_evidences)
+    print(prompt)
+    text = ""
+    count = 0
+    choices = ["0"]
+    options_list = extract_options(options)
+    
+    while is_invalid_format(choices) or (not check_element(options_list, choices)):
+        if count > 20:
+            text = "[A]"
+            break
+        chat_messages = []
+        chat_messages.append(
+                {"role": "user", "content": f"{prompt}"}
+            )
+        generation_output = openai.ChatCompletion.create(
+            messages=chat_messages,
+            engine=deployment_name,
+            temperature=0.2,
+            top_p=0.95,
+        )
+
+        text = generation_output['choices'][0]["message"]["content"].strip()
+        print("\nRaw text: ", text)
+        count += 1
+
+        if is_invalid_format(extract_choices(text)):
+            if "." in text:
+                dot_indices = [i for i, char in enumerate(text) if char == "."]
+                list_choices = [text[i-1] for i in dot_indices]
+                text = "[" + ','.join(i for i in list_choices) + "]"
+                print("Fixed . : ", text)
+            elif "," in text and ("[" not in text):
+                text = "[" + text + "]"
+                print("Fixed , : ", text)
+            elif any(len(i) for i in text.split(" ")) == 1:
+                text = "[" + ",".join(i for i in text.split(" ")) + "]"
+                print("Fixed : ", text)
+            else:
+                text = "[" + text[0].strip() + "]"
+                print("Fixed none : ", text)
+
+        choices = sorted(list(set(extract_choices(text))))
+        choices = [item for item in choices if item in options_list]
+        print("Choices: ", choices)
+    output = binary_output(choices, options)  
+    return output
+
+def predict(input_file_path, output_file_path):
+    df = pd.read_csv(input_file_path, dtype=str)
+    
+    prediction = pd.DataFrame(columns=['id', 'answer'])
+    
+    start = time.time()
+    # Read test data
+    for i in range(df.shape[0]):
+        data_row = df.iloc[i]
+        data_row = data_row.dropna()
+        data_id = data_row["id"]
+        question, options = preprocess(data_row)
+        # print("\n", f"{data_row[0]}: {question}")
+        # print(options, "\n")
+        # Start inference
+        answer = inference(question, options) # infer
+        prediction.loc[i] = [data_id, answer]
+    end = time.time()
+    
+    # Write prediction
+    prediction.to_csv(output_file_path, index=False)
+    return end - start
+
+
+if __name__ == '__main__':
+    TEST_FILE_PATH = "data/public_test.csv"
+
+    print(predict(TEST_FILE_PATH, "result.csv"))
