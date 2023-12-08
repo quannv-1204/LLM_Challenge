@@ -9,13 +9,13 @@ from utils import jload
 from langchain.vectorstores import Chroma, FAISS
 from langchain.docstore.document import Document
 # from embeddings import HuggingFaceEmbeddings
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.text_splitter import RecursiveCharacterTextSplitter, NLTKTextSplitter
 
 from langchain.embeddings import HuggingFaceEmbeddings
 
 # Load environment variables
 source_directory = f"data/en_json"
-persist_directory = f"data/db/en_faiss_disease_db"
+persist_directory = f"data/db/new_en_faiss_disease_db"
 
 
 encode_kwargs = {'normalize_embeddings': True}
@@ -46,7 +46,7 @@ def process_documents(documents: List[Document] = []) -> List[Document]:
         print("No new documents to load")
         exit(0)
     print(f"Loaded {len(documents)} new documents from {source_directory}")
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
+    text_splitter = NLTKTextSplitter(separator=" ",chunk_size=chunk_size, chunk_overlap=chunk_overlap)
     texts = text_splitter.split_documents(documents)
     print(f"Split into {len(texts)} chunks of text (max. {chunk_size} tokens each)")
     return texts

@@ -63,7 +63,7 @@ def find_keywords(question, llm):
     return keywords
 
 
-def convert_disease_name(sentence: str, mapping)-> str:
+def mapping_func(sentence: str, mapping)-> str:
     for k,v in mapping.items():
         occurrences = [i for i in range(len(sentence)) if sentence.lower().startswith(k, i)]
         while len(occurrences) !=0:
@@ -75,6 +75,25 @@ def convert_disease_name(sentence: str, mapping)-> str:
             sentence = pre + " " + v.strip() + " " + post
             occurrences = [i for i in range(len(sentence)) if sentence.lower().startswith(k, i)]
     return sentence
+
+
+def convert_name(sentence: str, model: any) -> str:
+    ner_results = model(sentence)
+    names = []
+    for i, entity in enumerate(ner_results):
+        if entity['entity'] == 'B-PERSON':
+            if i != len(ner_results)-1 and ner_results[i+1]['entity'] == 'I-PERSON':
+                name = sentence[ner_results[i]['start']:ner_results[i+1]['end']]
+            else:
+                name = sentence[ner_results[i]['start']:ner_results[i]['end']]
+            names.append(name.lower())
+    names = list(dict.fromkeys(names))
+    names_mapping = {}
+    for i, name in enumerate(names):
+        names_mapping[name] = f"patient_{i}"
+    sentence = mapping_func(sentence, names_mapping)
+    return sentence
+
 
 def generate_query(question: str, options: str, model: Any):
     # Define regular expressions to match the disease names and queries

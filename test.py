@@ -1,7 +1,7 @@
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 import pandas as pd
-from transformers import AutoModelForSequenceClassification, AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import AutoModelForSequenceClassification, AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForTokenClassification, pipeline
 from process_data.prompt_const import *
 from process_data.utils import *
 from llama_cpp_cuda import Llama
@@ -18,7 +18,7 @@ tokenizer_rerank = AutoTokenizer.from_pretrained('BAAI/bge-reranker-large')
 model_rerank = AutoModelForSequenceClassification.from_pretrained('BAAI/bge-reranker-large').to("cuda")
 model_rerank.eval()
 
-persist_directory_context = "data/db/en_faiss_disease_db"
+persist_directory_context = "data/db/new_en_faiss_disease_db"
 db_disease = FAISS.load_local(persist_directory_context, embeddings)
 
 tokenizer_vi2en = AutoTokenizer.from_pretrained("vinai/vinai-translate-vi2en", src_lang="vi_VN")
@@ -27,6 +27,11 @@ device_vi2en = torch.device("cuda")
 model_vi2en.to(device_vi2en)
 model_vi2en.eval()
 
+ner_tokenizer = AutoTokenizer.from_pretrained("NlpHUST/ner-vietnamese-electra-base")
+ner_model = AutoModelForTokenClassification.from_pretrained("NlpHUST/ner-vietnamese-electra-base")
+ner = pipeline("ner", model=ner_model, tokenizer=ner_tokenizer)
+
+mapping = jload("data/mapping.json")
 print(f"Successfully loaded the models into memory")
 
 
@@ -60,8 +65,8 @@ def preprocess(data_row):
         data_row[j] = f"{options[j-2]}. " + data_row[j]
 
     list_ops = " xxx ".join(i for i in data_row[2:])
-    text2trans = data_row[1] + " xxx " + list_ops
-  
+    text2trans = convert_name(data_row[1], ner) + " xxx " + list_ops
+    text2trans = mapping_func(text2trans, mapping)
 
     res = translate_vi2en(text2trans)
     res = res[0].split(" xxx ")
@@ -74,27 +79,27 @@ def preprocess(data_row):
 def inference(question: str, options: str, max_new_tokens: int=32, save_top_evidenct_amount=10) -> str: 
 
     instruction = "Represent this sentence for searching relevant passages: "
-    query_2 = instruction + question + "\n" + fix_options_format(options)
+    query_2 = instruction + question + options.replace("\n", " ")
 
 
     filtered_docs = db_disease.similarity_search_with_relevance_scores(query_2, k=40, score_threshold=0.3)
 
     
-    scores = rerank(model_rerank, tokenizer_rerank, question + "\n" + fix_options_format(options), filtered_docs)
+    scores = rerank(model_rerank, tokenizer_rerank, question + options.replace("\n", " "), filtered_docs)
     top_evidences = []
     for j in range(save_top_evidenct_amount):
         top_evidences.append(filtered_docs[scores.index(max(scores))])
         scores[scores.index(max(scores))] = -100
 
     prompt = make_prompt(question, options, top_evidences)
-    
+    print(prompt)
     text = ""
     count = 0
     choices = ["0"]
     options_list = extract_options(options)
     
     while is_invalid_format(choices) or (not check_element(options_list, choices)):
-        if count > 10:
+        if count > 20:
             text = "[A]"
             break
         generation_output = model(prompt, max_tokens=max_new_tokens, stream=False, temperature=0.2)
@@ -136,8 +141,8 @@ def predict(input_file_path, output_file_path):
         data_row = data_row.dropna()
         data_id = data_row["id"]
         question, options = preprocess(data_row)
-        print("\n", f"{data_row[0]}: {question}")
-        print(options, "\n")
+        # print("\n", f"{data_row[0]}: {question}")
+        # print(options, "\n")
         # Start inference
         answer = inference(question, options) # infer
         prediction.loc[i] = [data_id, answer]
