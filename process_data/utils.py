@@ -66,9 +66,12 @@ def find_keywords(question, llm):
 def mapping_func(sentence: str, mapping)-> str:
     for k,v in mapping.items():
         occurrences = [i for i in range(len(sentence)) if sentence.lower().startswith(k, i)]
+        pre_pos = 0
+        pos = 0
         while len(occurrences) !=0:
+            pre_pos = pos
             pos = occurrences[0]
-            if pos > 0 and sentence[pos-1] != ' ':
+            if pos > 0 and sentence[pos-1] != ' ' or pos == pre_pos:
                 break
             pre = sentence[:pos].strip()
             post = sentence[pos+len(k):].strip()
@@ -119,7 +122,7 @@ def document_ranking_prompt(question, list_contexts):
             [
                 "".join(
                     [
-                        f"Document {idx}:\n<{item}>\n\n",
+                        f"Document {idx}:\n{item[0].metadata['disease'].title()}: <{item[0].page_content}>\n\n",
                     ]
                 )
                 for idx, item in enumerate(list_contexts)
@@ -133,7 +136,7 @@ def split_list(input_list, chunk_size=3):
     else:
         return [input_list]
     
-def doc_extracter(sentence, data):
+def doc_extracter(sentence, data, score_threshold=5):
     # Split the sentence into lines
     lines = sentence.split('\n')
 
@@ -149,7 +152,7 @@ def doc_extracter(sentence, data):
         if match:
             doc_index = int(match.group(1))
             doc_score = int(match.group(2))
-            if doc_score >= 7 and len(data) > 0 and doc_index < len(data):
+            if doc_score >= score_threshold and len(data) > 0 and doc_index < len(data):
                 context = data[doc_index]
                 contexts.append(context)
 

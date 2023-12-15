@@ -79,13 +79,13 @@ def preprocess(data_row):
 def inference(question: str, options: str, max_new_tokens: int=32, save_top_evidenct_amount=10) -> str: 
 
     instruction = "Represent this sentence for searching relevant passages: "
-    query_2 = instruction + question + options.replace("\n", " ")
+    query_2 = instruction + question + options#.replace("\n", " ")
 
 
     filtered_docs = db_disease.similarity_search_with_relevance_scores(query_2, k=40, score_threshold=0.3)
 
     
-    scores = rerank(model_rerank, tokenizer_rerank, question + options.replace("\n", " "), filtered_docs)
+    scores = rerank(model_rerank, tokenizer_rerank, question + options, filtered_docs)
     top_evidences = []
     for j in range(save_top_evidenct_amount):
         top_evidences.append(filtered_docs[scores.index(max(scores))])

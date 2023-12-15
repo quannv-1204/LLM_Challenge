@@ -66,10 +66,7 @@ Absolutely must answer in {target_language}, do not answer in other languages.
 
 YOUR ANSWER IN {target_language} GOES HERE:
 """
-RANKING_PROMPT_TEMPLATE = """### System:
-The following is a friendly conversation between a human and an AI. The AI is a good listener and can follow instruction very well. If the AI does not know the answer to a question, it truthfully says it does not know.
-
-### User:
+RANKING_PROMPT_TEMPLATE = """### Instruction:
 A list of documents is shown below. Each document has a number next to it along with content of the document. A question is also provided.
 Requirement: 
 1. Respond with the numbers of the documents you should consult to answer the question, in order of relevance, as well as the relevance score.
@@ -107,7 +104,7 @@ Doc: 5, Relevance: 3
 Let's try this now:
 {docs}
 
-### Assistant:
+### Response:
 """
 
 KEYWORD_SEARCH_TEMPLATE = """### System:
